@@ -13,7 +13,7 @@ class users(db.Model):
     phone = db.Column(db.String(15))
     cpf = db.Column(db.String(11))
     address = db.Column(db.String(140))
-    game_time = db.Column(db.String(10))
+    game_time = db.Column(db.Float())
     timestamp = db.Column(db.DateTime())
     def __init__(self, email, name, phone, cpf, address, game_time, timestamp):
         self.email = email
@@ -24,12 +24,12 @@ class users(db.Model):
         self.game_time = game_time
         self.timestamp = timestamp
 
-def InsertUser(data):
+def insert_user(data):
     usr = users(data.email, data.name, data.phone, data.cpf, data.address, data.game_time, data.timestamp)
     db.session.add(usr)
     db.session.commit()
 
-def SelectAllUsers():
+def select_all_users():
     data_users = users.query.all()
     usersData = []
     for num, item in enumerate(data_users, start=0):
@@ -40,13 +40,17 @@ def SelectAllUsers():
             'phone':str(item.phone),
             'cpf':str(item.cpf),
             'address':str(item.address),
-            'game_time':str(item.game_time),
+            'game_time':item.game_time,
             'timestamp':str(item.timestamp),
         }
         usersData.insert(context)
     return(usersData)
 
-def findUser(userCpf):
+def find_user(userCpf):
     user = users.query.filter_by(cpf=userCpf).first()
     if(user != None): return user
     else: return None
+
+def update_user(userCpf, new_game_time):
+    db.update(users).where(users.cpf == userCpf).values(game_time=new_game_time)
+    db.session.commit()
