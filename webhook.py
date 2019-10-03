@@ -13,21 +13,33 @@ import bd
 blueprint = flask.Blueprint('webhook', __name__)
 
 class user():
-    name = ""
     email = ""
+    name = ""
     phone = ""
+    cpf = ""
+    address = ""
+    game_time = ""
+    timestamp = datetime.now()
 
 actualUser = user()
 
-@blueprint.route('/webhook', methods=[ 'POST', 'GET' ])
-def newUser():
+@blueprint.route('/add_user', methods=[ 'POST' ])
+def add_user():
     form = request.get_json(silent=True, force=True)
     res = (json.dumps(form, indent=3))
     actualUser.name = str(form['name'])
     actualUser.email = str(form['email'])
     actualUser.phone = str(form['phone'])
-    try:
+    actualUser.cpf = str(form['cpf'])
+    actualUser.address = str(form['address'])
+    actualUser.game_time = "0"
+    actualUser.timestamp = datetime.now()
+    existingUser = bd.findUser(actualUser.cpf)
+    if(existingUser != None):
+        if(existingUser.game_time == "0"): print("Usuário " + str(existingUser.name) + " será o próximo a jogar")
+        else: "Usuário já existe e já está com tempo cadastrado"
+    else: 
         bd.InsertUser(actualUser)
-    except:
-        return "Usuário já existente"
-    return "true"
+        return "200"
+
+    

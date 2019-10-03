@@ -14,7 +14,7 @@ app.secret_key = 'secret'
 
 app.register_blueprint(webhook_blueprint)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:nNmLMtT1yMHQ@34.67.13.124/bgs'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:ubergeek@localhost/bgs'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 bd.db = bd.SQLAlchemy(app)
