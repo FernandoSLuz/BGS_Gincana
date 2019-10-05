@@ -74,4 +74,11 @@ def add_user():
         bd.insert_user(actualUser)
         return "Usuário " + actualUser.name + " cadastrado com sucesso"
 
+@blueprint.route('/users', methods=[ 'POST' ])
+def show_users():
+    context = {
+        'users': bd.select_all_users()
+    }
+    return(context)
+
     
