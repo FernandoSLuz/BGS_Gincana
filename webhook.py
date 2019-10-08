@@ -39,7 +39,7 @@ def next_player():
         actualUser = user()
         return context
     else:
-        return "No players"
+        return "No player"
 
 @blueprint.route('/update_user', methods=[ 'POST' ])
 def update_user():
@@ -74,7 +74,7 @@ def add_user():
         bd.insert_user(actualUser)
         return "Usuário " + actualUser.name + " cadastrado com sucesso"
 
-@blueprint.route('/users', methods=[ 'POST' ])
+@blueprint.route('/users', methods=[ 'GET' ])
 def show_users():
     context = {
         'users': bd.select_all_users()
