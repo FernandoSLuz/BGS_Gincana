@@ -82,4 +82,9 @@ def show_users():
     }
     return(context)
 
+@blueprint.route('/reset_all', methods=[ 'GET' ])
+def reset_timers():
+    bd.reset_users()
+    return "Cronômetros zerados!"
+
     
