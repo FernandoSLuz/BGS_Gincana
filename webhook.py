@@ -18,15 +18,15 @@ class user():
     phone = ""
     cpf = ""
     address = ""
-    game_time = 0
+    game_time = "0"
     timestamp = datetime.now()
 
 actualUser = user()
 
-@blueprint.route('/next_player', methods=[ 'get' ])
+@blueprint.route('/next_player', methods=[ 'GET' ])
 def next_player():
     global actualUser
-    if(actualUser.cpf != ""):
+    if(actualUser.cpf != "" and actualUser.game_time == "0"):
         context = {
             'email':actualUser.email,
             'name': actualUser.name,
@@ -45,7 +45,8 @@ def next_player():
 def update_user():
     form = request.get_json(silent=True, force=True)
     res = (json.dumps(form, indent=3))
-    bd.update_user(str(form['cpf']), float(str(form['game_time'])))
+    print(str(res))
+    bd.update_user(str(form['cpf']), (str(form['game_time'])))
     return "usuario atualizado"
 
 @blueprint.route('/add_user', methods=[ 'POST' ])
@@ -54,7 +55,7 @@ def add_user():
     res = (json.dumps(form, indent=3))
     existingUser = bd.find_user(str(form['cpf']))
     if(existingUser != None):
-        if(existingUser.game_time == 0): 
+        if(existingUser.game_time == "0"): 
             actualUser.name = existingUser.name
             actualUser.email = existingUser.email
             actualUser.phone = existingUser.phone
@@ -69,7 +70,7 @@ def add_user():
         actualUser.phone = str(form['phone'])
         actualUser.cpf = str(form['cpf'])
         actualUser.address = str(form['address'])
-        actualUser.game_time = 0
+        actualUser.game_time = "0"
         actualUser.timestamp = datetime.now()
         bd.insert_user(actualUser)
         return "Usuário " + actualUser.name + " cadastrado com sucesso"

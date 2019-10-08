@@ -13,7 +13,7 @@ class users(db.Model):
     phone = db.Column(db.String(15))
     cpf = db.Column(db.String(11))
     address = db.Column(db.String(140))
-    game_time = db.Column(db.Float())
+    game_time = db.Column(db.String(50))
     timestamp = db.Column(db.DateTime())
     def __init__(self, email, name, phone, cpf, address, game_time, timestamp):
         self.email = email
@@ -40,10 +40,10 @@ def select_all_users():
             'phone':str(item.phone),
             'cpf':str(item.cpf),
             'address':str(item.address),
-            'game_time':item.game_time,
+            'game_time':str(item.game_time),
             'timestamp':str(item.timestamp),
         }
-        usersData.insert(context)
+        usersData.insert(num, context)
     return(usersData)
 
 def find_user(userCpf):
