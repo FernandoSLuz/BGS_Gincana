@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="card shadow">
+  <div class="card-header">
+    <h3>Gitlab</h3>
+  </div>
+  <div class="card-body">
+    <section id="users">
+      <header>
+        <h4>Usuários</h4>
+      </header>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Endereço</th>
+            <th>Tempo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in context.users %}
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.cpf }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.address }}</td>
+            <td>{{ user.game_time }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </div>
+</div>
+{% endblock %}
