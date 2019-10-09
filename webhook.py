@@ -80,7 +80,7 @@ def show_users():
     context = {
         'users': bd.select_all_users()
     }
-    return flask.render_template('usermod.html', context = context)
+    return context
 
 @blueprint.route('/reset_all', methods=[ 'GET' ])
 def reset_timers():

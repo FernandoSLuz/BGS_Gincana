@@ -22,7 +22,7 @@ bd.db = bd.SQLAlchemy(app)
 @app.route('/')
 def index():
     context = {
-        'title':'Hacka | Pepe'
+        'title':'BGS'
     }
     return (context)
 
