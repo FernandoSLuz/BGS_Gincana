@@ -53,28 +53,37 @@ def update_user():
 def add_user():
     form = request.get_json(silent=True, force=True)
     res = (json.dumps(form, indent=3))
-    existingUser = bd.find_user(str(form['cpf']))
-    if(existingUser != None):
-        if(existingUser.game_time == "0"): 
-            actualUser.name = existingUser.name
-            actualUser.email = existingUser.email
-            actualUser.phone = existingUser.phone
-            actualUser.cpf = existingUser.cpf
-            actualUser.address = existingUser.address
-            actualUser.game_time = existingUser.game_time
-            return("Usuário " + str(existingUser.name) + " será o próximo a jogar")
-        else: return("Usuário já existe e já está com tempo cadastrado")
-    else: 
-        actualUser.name = str(form['name'])
-        actualUser.email = str(form['email'])
-        actualUser.phone = str(form['phone'])
-        actualUser.cpf = str(form['cpf'])
-        actualUser.address = str(form['address'])
-        actualUser.game_time = "0"
-        actualUser.timestamp = datetime.now()
-        bd.insert_user(actualUser)
-        return "Usuário " + actualUser.name + " cadastrado com sucesso"
-
+    #existingUser = bd.find_user(str(form['cpf']))
+    #if(existingUser != None):
+    #    if(existingUser.game_time == "0"): 
+    #        actualUser.name = existingUser.name
+    #        actualUser.email = existingUser.email
+    #        actualUser.phone = existingUser.phone
+    #        actualUser.cpf = existingUser.cpf
+    #        actualUser.address = existingUser.address
+    #        actualUser.game_time = existingUser.game_time
+    #        return("Usuário " + str(existingUser.name) + " será o próximo a jogar")
+    #    else: return("Usuário já existe e já está com tempo cadastrado")
+    #else: 
+    #    actualUser.name = str(form['name'])
+    #    actualUser.email = str(form['email'])
+    #    actualUser.phone = str(form['phone'])
+    #    actualUser.cpf = str(form['cpf'])
+    #    actualUser.address = str(form['address'])
+    #    actualUser.game_time = "0"
+    #    actualUser.timestamp = datetime.now()
+    #   bd.insert_user(actualUser)
+    #   return "Usuário " + actualUser.name + " cadastrado com sucesso"
+    actualUser.name = str(form['name'])
+    actualUser.email = str(form['email'])
+    actualUser.phone = str(form['phone'])
+    actualUser.cpf = str(form['cpf'])
+    actualUser.address = str(form['address'])
+    actualUser.game_time = "0"
+    actualUser.timestamp = datetime.now()
+    bd.insert_user(actualUser)
+    return "Usuário " + actualUser.name + " cadastrado com sucesso"
+    
 @blueprint.route('/users', methods=[ 'GET' ])
 def show_users():
     context = {
