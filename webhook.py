@@ -73,15 +73,7 @@ def add_user():
         actualUser.timestamp = datetime.now()
         bd.insert_user(actualUser)
         return "Usuário " + actualUser.name + " cadastrado com sucesso"
-    actualUser.name = str(form['name'])
-    actualUser.email = str(form['email'])
-    actualUser.phone = str(form['phone'])
-    actualUser.cpf = str(form['cpf'])
-    actualUser.address = str(form['address'])
-    actualUser.game_time = "0"
-    actualUser.timestamp = datetime.now()
-    bd.insert_user(actualUser)
-    return "Usuário " + actualUser.name + " cadastrado com sucesso"
+
     
 @blueprint.route('/users', methods=[ 'GET' ])
 def show_users():
