@@ -55,6 +55,7 @@ def update_user(userCpf, new_game_time):
     upd = db.update(users).where(users.cpf == userCpf).values(game_time=new_game_time)
     db.session.execute(upd)
     db.session.commit()
+    print("USUÁRIO ATUALIZADO")
 
 def reset_users():
     upd = db.update(users).values(game_time="0")
